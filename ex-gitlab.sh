@@ -21,6 +21,7 @@ fi
    --dst.edition_configs.edition 'community' \
    --dst.edition_configs.hasura_admin_secret 'admin' \
    --dst.edition_configs.hasura_url 'http://host.docker.internal:8080/' \
+   --dst-stream-prefix 'mygitlabcisrc__gitlab-ci__'
    --state state.json \
    --check-connection \
    --debug \ # Comment to turn off debug
