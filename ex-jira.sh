@@ -1,14 +1,14 @@
 
-export $(grep -v '^#' .env | xargs)
+export $(grep -v '^#' .secrets | xargs)
 
 if [ -z ${JIRA_TOKEN+x} ]
 then
-   echo "Add JIRA_TOKEN to .env"
+   echo "Add JIRA_TOKEN to .secrets"
 fi
 
 if [ -z ${JIRA_URL+x} ]
 then
-   echo "Add JIRA_URL to .env"
+   echo "Add JIRA_URL to .secrets"
 fi
 
 ./airbyte-local.sh \
@@ -19,7 +19,7 @@ fi
    --dst 'farosai/airbyte-faros-destination' \
    --dst.edition_configs.edition 'community' \
    --dst.edition_configs.hasura_admin_secret 'admin' \
-   --dst.edition_configs.hasura_url 'http://localhost:8080' \
+   --dst.edition_configs.hasura_url 'http://host.docker.internal:8080/' \
    --state state.json \
    --check-connection \
    # --src-only \

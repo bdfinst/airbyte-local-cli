@@ -1,14 +1,14 @@
    
-export $(grep -v '^#' .env | xargs)
+export $(grep -v '^#' .secrets | xargs)
 
 if [ -z ${GITLAB_TOKEN+x} ]
 then
-   echo "Add GITLAB_TOKEN to .env"
+   echo "Add GITLAB_TOKEN to .secrets"
 fi
 
 if [ -z ${GITLAB_URL+x} ]
 then
-   echo "Add GITLAB_URL to .env"
+   echo "Add GITLAB_URL to .secrets"
 fi
 
 ./airbyte-local.sh \
@@ -20,8 +20,8 @@ fi
    --dst 'farosai/airbyte-faros-destination' \
    --dst.edition_configs.edition 'community' \
    --dst.edition_configs.hasura_admin_secret 'admin' \
-   --dst.edition_configs.hasura_url 'localhost:8080' \
+   --dst.edition_configs.hasura_url 'http://host.docker.internal:8080/' \
    --state state.json \
    --check-connection \
-   # --src-only \
-   --debug \
+   --debug \ # Comment to turn off debug
+   # --src-only \ Uncomment to run validate only the source
