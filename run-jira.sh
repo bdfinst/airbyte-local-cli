@@ -22,5 +22,5 @@ fi
    --dst.edition_configs.hasura_url 'http://localhost:8080' \
    --state state.json \
    --check-connection \
-   --src-only \
+   # --src-only \
    --debug
