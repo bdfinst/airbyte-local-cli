@@ -10,17 +10,19 @@ fi
 
 ./airbyte-local.sh \
    --src 'farosai/airbyte-faros-feeds-source' \
-   --src.feed_cfg.feed_name 'jira-feed' \
-   --src.feed_cfg.feed_path 'tms/jira-feed' \
-   --src.feed_cfg.domain "$JIRA_URL" \
-   --src.feed_cfg.api_token "$JIRA_TOKEN" \
-   --src.feed_cfg.projects_query_mode.query_mode 'ProjectList' \
-   --src.feed_cfg.projects '["CLMD"]' \
+   --src.feed_cfg.feed_name 'gitlab-feed' \
+   --src.feed_cfg.feed_path 'vcs/gitlab-feed' \
+   --src.feed_cfg.api_url "${GITLAB_URL}" \
+   --src.feed_cfg.token "${GITLAB_TOKEN}" \
+   --src.feed_cfg.repos_query_mode 'GitLabGroup' \
+   --src.feed_cfg.group_names '["platform-one/big-bang/apps/sandbox/holocron"]' \
    --dst 'farosai/airbyte-faros-destination' \
    --dst.edition_configs.edition 'community' \
    --dst.edition_configs.hasura_admin_secret 'admin' \
    --dst.edition_configs.hasura_url 'http://host.docker.internal:8080/' \
    --state state.json \
    --check-connection \
+   --src-only \
    --full-refresh \
+   -q 'GitLabGroup' \
    --debug
